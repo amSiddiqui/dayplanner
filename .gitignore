@@ -4,3 +4,6 @@
 
 # JSHint
 .jshintrc
+
+# Dependencies
+node_modules/
