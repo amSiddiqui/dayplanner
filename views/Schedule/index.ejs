@@ -1,0 +1,15 @@
+<% include ../partials/header %>
+    <h1>Here are all the Schedule</h1>
+
+    <% if (schedules){ %>
+        <ul>
+            <% schedules.forEach((schedule)=>{ %>
+                <li><%=schedule.Activity%></li>
+            <% }); %>
+        </ul>
+    <%}else{%>
+        <h3>No Schedules yet.</h3>
+        <h3>Create one now</h3>
+        <a href="/schedule/new" class="btn btn-success">Create</a>
+    <%}%>
+<% include ../partials/footer %>
