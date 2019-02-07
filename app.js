@@ -7,9 +7,6 @@ const express = require("express"),
 // Importing Routes 
 const indexRoutes = require("./routes/index");
 
-// Setting up database
-const db = require("./modules/database");
-
 // Configuring app
 app.use(bodyParser.urlencoded({extended: false}));
 app.set("view engine", "ejs");
