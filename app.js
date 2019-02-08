@@ -2,7 +2,7 @@ const express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
     dontEnv = require("dotenv").config(),
-    mysql = require("mysql");
+    methodOvrride = require("method-override");
 
 // Importing Routes 
 const indexRoutes = require("./routes/index");
@@ -11,6 +11,7 @@ const indexRoutes = require("./routes/index");
 app.use(bodyParser.urlencoded({extended: false}));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname+"/public"));
+app.use(methodOvrride("_method"));
 
 // Starting routes
 app.use(indexRoutes);

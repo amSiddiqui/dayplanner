@@ -1,0 +1,14 @@
+<% include ../partials/header %>
+    <form action="/schedule/<%=result.id%>?_method=PUT" method="post">
+        <label for="activity">Activity: </label>
+        <input type="text" name="activity" id="activity" value="<%=result.Activity%>"><br>
+        <label for="comment">Comment: </label>
+        <input type="text" name="comment" id="comment" value="<%=result.Comment%>"><br>
+        <label for="time_start">Time Start: </label>
+        <!-- TODO: Create a date time editing format -->
+        <input type="datetime-local" name="time_start" id="time_start" ><br>
+        <label for="time_end">Time End: </label>
+        <input type="datetime-local" name="time_end" id="time_end"><br>
+        <input type="submit" value="Submit">
+    </form>
+<% include ../partials/footer %>
