@@ -1,0 +1,10 @@
+<% include ../partials/header %>
+    <% if(result){ var schedule = result[0] %>
+        <h1><%=schedule.Activity%></h1>
+        <h3><%=schedule.Comment%></h3>
+        <h3><%=schedule.time_start%></h3>
+        <h3><%=schedule.time_end%></h3>
+    <% }else{ %>
+        <h1 class="text-danger">Plan with this ID Doesn't Exist</h1>
+    <% } %>
+<% include ../partials/footer %>

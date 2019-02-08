@@ -4,7 +4,9 @@
     <% if (schedules){ %>
         <ul>
             <% schedules.forEach((schedule)=>{ %>
-                <li><%=schedule.Activity%></li>
+                <li> <a href="/schedule/<%=schedule.id%>"><%=schedule.Activity%> </a></li>
+                <a href="/schedule/<%=schedule.id%>/edit" class="btn btn-warning btn-sm">Edit</a>
+                <a href="/schedule/<%=schedule.id%>/delete" class="btn btn-danger btn-sm">Delete</a>
             <% }); %>
         </ul>
     <%}else{%>
@@ -12,4 +14,6 @@
         <h3>Create one now</h3>
         <a href="/schedule/new" class="btn btn-success">Create</a>
     <%}%>
+
+    <a href="/schedule/new" class="btn btn-primary">Create New</a>
 <% include ../partials/footer %>
