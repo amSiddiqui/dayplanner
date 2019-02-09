@@ -5,10 +5,10 @@
         <label for="comment">Comment: </label>
         <input type="text" name="comment" id="comment" value="<%=result.Comment%>"><br>
         <label for="time_start">Time Start: </label>
-        <!-- TODO: Create a date time editing format -->
-        <input type="datetime-local" name="time_start" id="time_start" ><br>
+        <!-- FIXME: Create a date time editing format -->
+        <input type="datetime-local" name="time_start" id="time_start" value="<%=result.time_start.toString()%>"><br>
         <label for="time_end">Time End: </label>
-        <input type="datetime-local" name="time_end" id="time_end"><br>
+        <input type="datetime-local" name="time_end" id="time_end" value="<%=result.time_end.toString()%>"><br>
         <input type="submit" value="Submit">
     </form>
 <% include ../partials/footer %>

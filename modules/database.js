@@ -1,11 +1,18 @@
-const mysql = require("mysql");
+const Sequelize = require('sequelize'),
+    sequelize = new Sequelize(process.env.DBNAME, process.env.DBUSER, process.env.DBPASS, {
+        host: process.env.HOST,
+        dialect: 'mysql',
+        operatorsAliases: false,
+         pool: {
+             max: 5,
+             min: 0,
+             acquire: 30000,
+             idle: 10000
+         },
+         timezone: '+05:30'        
+    });
 
-var pool = mysql.createPool({
-    host: process.env.HOST,
-    user: process.env.DBUSER,
-    password: process.env.DBPASS,
-    database: process.env.DBNAME,
-    timezone: '+05:30'
-});
-
-module.exports = pool;
+module.exports = {
+    sequelize: sequelize,
+    Sequelize: Sequelize
+};

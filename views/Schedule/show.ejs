@@ -1,5 +1,5 @@
 <% include ../partials/header %>
-    <% if(result){ var schedule = result[0] %>
+    <% if(result){ var schedule = result.dataValues %>
         <h1><%=schedule.Activity%></h1>
         <h3><%=schedule.Comment%></h3>
         <h3><%=schedule.time_start%></h3>

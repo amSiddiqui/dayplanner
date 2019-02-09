@@ -1,12 +1,12 @@
 <% include ../partials/header %>
     <h1>Here are all the Schedule</h1>
 
-    <% if (schedules){ %>
+    <% if (schedules.length){ %>
         <ul>
             <% schedules.forEach((schedule)=>{ %>
-                <li> <a href="/schedule/<%=schedule.id%>"><%=schedule.Activity%> </a></li>
-                <a href="/schedule/<%=schedule.id%>/edit" class="btn btn-warning btn-sm">Edit</a>
-                <form action="/schedule/<%=schedule.id%>?_method=DELETE" class = "d-inline" method="POST">
+                <li> <a href="/schedule/<%=schedule.dataValues.id%>"><%=schedule.dataValues.Activity%> </a></li>
+                <a href="/schedule/<%=schedule.dataValues.id%>/edit" class="btn btn-warning btn-sm">Edit</a>
+                <form action="/schedule/<%=schedule.dataValues.id%>?_method=DELETE" class = "d-inline" method="POST">
                     <button class="btn btn-sm btn-danger">Delete</button>
                 </form>
             <% }); %>
