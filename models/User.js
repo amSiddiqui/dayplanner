@@ -1,6 +1,6 @@
 const db = require('../modules/database');
 
-const User = db.sequelize.define('user', {
+const User = db.sequelize.define('User', {
     id: {
         autoIncrement: true,
         primaryKey: true,
@@ -32,7 +32,8 @@ const User = db.sequelize.define('user', {
         allowNull: false
     },
     last_login: {
-        type: db.Sequelize.DATE
+        type: db.Sequelize.DATE,
+        defaultValue: db.Sequelize.NOW
     },
 
 });

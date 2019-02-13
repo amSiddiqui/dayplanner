@@ -32,6 +32,9 @@ app.use(passport.session());  // Persistent login session
 const db = require("./modules/database");
 const Schedule = require("./models/Schedule");
 const User = require('./models/User');
+
+require('./modules/passport')(User, passport);
+
 // Authentication Connection to database;
 db.sequelize.authenticate()
     .then(()=>{
