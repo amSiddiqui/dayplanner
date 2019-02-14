@@ -41,7 +41,7 @@ module.exports = function (user, passport) {
     }
     ));
     passport.serializeUser((user, done)=>{
-        done(null, user.id);
+        done(null, user);
     });
 
     passport.deserializeUser((user, done)=>{
@@ -51,4 +51,36 @@ module.exports = function (user, passport) {
             done(user.errors, null);
         }
     });
+
+
+    passport.use("local-login" , new LocalStrategy(
+        {
+            usernameField: "email",
+            passwordField: "password",
+            passReqToCallback: true
+        },
+        (req, email, password, done)=>{
+            var isValidPassword = function (userPass, password) { 
+                return bCrypt.compareSync(password, userPass);
+            };
+            User.findOne(
+                {
+                    where: {
+                        email: email
+                    }
+                }
+            ).then(user => {
+                if(!user){
+                    return done(null, false, {message: "User does not exist"});
+                }
+                if(!isValidPassword(user.password, password)){
+                    return done(null, false, {message: "Wrong Password"});
+                }
+                return done(null, user);
+            }).catch(err => {
+                console.error("Error: ", err);
+                return done(null, false, {message: "Something went wrong with sign in"});
+            });
+        }
+    ));
 };

@@ -46,6 +46,12 @@ db.sequelize.authenticate()
 // Synchronizing models
 db.sequelize.sync();
 
+// Set user to global level
+app.use((req, res, next)=>{
+    res.locals.user = req.user;
+    next();
+});
+
 // Starting routes
 app.use(indexRoutes);
 app.use("/schedule", scheduleRoutes);

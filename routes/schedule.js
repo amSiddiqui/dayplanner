@@ -5,7 +5,7 @@ const express = require("express"),
 
 
 // Route to Show all routes
-router.get("/", (req, res) => {
+router.get("/", isLoggedIn, (req, res) => {
     Schedule.findAndCountAll().then(result => {
         console.log("Number of results "+result.count);
         res.render("Schedule/index", {schedules: result.rows});
@@ -17,12 +17,12 @@ router.get("/", (req, res) => {
 
 
 // Route to create a Schedule.
-router.get("/new/", (req, res) => {
+router.get("/new/", isLoggedIn, (req, res) => {
     res.render("Schedule/new");
 });
 
 // Route to display a specific Schedule.
-router.get("/:id/", (req, res) => {
+router.get("/:id/", isLoggedIn, (req, res) => {
     Schedule.findByPk(req.params.id).then(result => {
         res.render("Schedule/show", {result: result});
     }).catch(err =>{
@@ -31,7 +31,7 @@ router.get("/:id/", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", isLoggedIn, (req, res) => {
     var activity = req.body.activity;
     var comment = req.body.comment;
     var time_start = req.body.time_start;
@@ -52,7 +52,7 @@ router.post("/", (req, res) => {
 });
 
 // Route to edit a specific Schedule.
-router.get("/:id/edit", (req, res) => {
+router.get("/:id/edit", isLoggedIn, (req, res) => {
     Schedule.findByPk(req.params.id).then(result =>{
         if(result){
             res.render("Schedule/edit", {result: result.dataValues});
@@ -66,7 +66,7 @@ router.get("/:id/edit", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", isLoggedIn, (req, res) => {
     var activity = req.body.activity;
     var comment = req.body.comment;
     var time_start = req.body.time_start;
@@ -91,7 +91,7 @@ router.put("/:id", (req, res) => {
 });
 
 // Route to delete a specific Schedule.
-router.delete("/:id", (req, res) => {
+router.delete("/:id", isLoggedIn, (req, res) => {
     Schedule.destroy({
         where: {
             id: req.params.id
@@ -109,5 +109,12 @@ router.delete("/:id", (req, res) => {
     });
 });
 
+
+function isLoggedIn (req, res, next) {
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect('/login');
+}
 
 module.exports = router;
