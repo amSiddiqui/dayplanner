@@ -1,4 +1,5 @@
 const db = require("../modules/database");
+const User = require('./User');
 
 const Schedule = db.sequelize.define("Schedule", {
     id: {
@@ -21,5 +22,8 @@ const Schedule = db.sequelize.define("Schedule", {
         allowNull: false
     }
 });
+
+// Add foreign Key Constraint
+Schedule.belongsTo(User);
 
 module.exports = Schedule;

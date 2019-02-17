@@ -43,6 +43,7 @@ db.sequelize.authenticate()
     .catch(err => {
         console.error("An error occured while connecting ", err);
     });
+ 
 // Synchronizing models
 db.sequelize.sync();
 

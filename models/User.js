@@ -17,9 +17,6 @@ const User = db.sequelize.define('User', {
     username: {
         type: db.Sequelize.STRING,
     },
-    about: {
-        type: db.Sequelize.STRING
-    },
     email: {
         type: db.Sequelize.STRING,
         allowNull: false,
@@ -35,7 +32,6 @@ const User = db.sequelize.define('User', {
         type: db.Sequelize.DATE,
         defaultValue: db.Sequelize.NOW
     },
-
 });
 
 module.exports = User;

@@ -6,7 +6,10 @@ const express = require("express"),
 
 // Route to Show all routes
 router.get("/", isLoggedIn, (req, res) => {
-    Schedule.findAndCountAll().then(result => {
+    // TODO: Select all the Schedules that belongs to only the current user
+    Schedule.findAndCountAll({where:{
+        UserId: req.user.id
+    }}).then(result => {
         console.log("Number of results "+result.count);
         res.render("Schedule/index", {schedules: result.rows});
     }).catch(err=>{
@@ -24,7 +27,8 @@ router.get("/new/", isLoggedIn, (req, res) => {
 // Route to display a specific Schedule.
 router.get("/:id/", isLoggedIn, (req, res) => {
     Schedule.findByPk(req.params.id).then(result => {
-        res.render("Schedule/show", {result: result});
+        if (result.UserId === req.user.id)
+            res.render("Schedule/show", {result: result});
     }).catch(err =>{
         res.render("dbError");
         console.error("An error occured while finding Schedule");
@@ -40,7 +44,8 @@ router.post("/", isLoggedIn, (req, res) => {
         Activity: activity,
         Comment: comment,
         time_start: time_start,
-        time_end: time_end
+        time_end: time_end,
+        UserId: req.user.id
     }).then(schedule =>{
         console.log("Added new Schedule to the database");
         console.log(schedule);
@@ -54,7 +59,7 @@ router.post("/", isLoggedIn, (req, res) => {
 // Route to edit a specific Schedule.
 router.get("/:id/edit", isLoggedIn, (req, res) => {
     Schedule.findByPk(req.params.id).then(result =>{
-        if(result){
+        if(result && result.UserId === req.user.id){
             res.render("Schedule/edit", {result: result.dataValues});
         }else{
             console.log("Wrong ID ERROR");
@@ -75,7 +80,8 @@ router.put("/:id", isLoggedIn, (req, res) => {
         Activity: activity,
         Comment: comment,
         time_start: time_start,
-        time_end: time_end
+        time_end: time_end,
+        UserId: req.user.id
     }, {
         where:{
             id: req.params.id
@@ -94,7 +100,8 @@ router.put("/:id", isLoggedIn, (req, res) => {
 router.delete("/:id", isLoggedIn, (req, res) => {
     Schedule.destroy({
         where: {
-            id: req.params.id
+            id: req.params.id,
+            UserId: req.user.id
         }
     }).then(affectedCount=>{
         if(affectedCount){
